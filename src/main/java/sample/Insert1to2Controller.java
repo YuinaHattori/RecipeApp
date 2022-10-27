@@ -2,6 +2,7 @@ package sample;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -41,6 +42,12 @@ public class Insert1to2Controller extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		try {
+			ArrayList<IngredientBean> ingredientlist = IngredientBean.getIngredientTable();
+			request.setAttribute("ingredienttable", ingredientlist);
+			
+			ArrayList<SpiceBean> spicelist = SpiceBean.getSpiceTable();
+			request.setAttribute("spicetable", spicelist);
+			
 			MenuBean mbean = new MenuBean();
 			mbean.setName(request.getParameter("name"));
 			mbean.setCategory_id(Integer.parseInt(request.getParameter("category_id")));
@@ -57,7 +64,6 @@ public class Insert1to2Controller extends HttpServlet {
 			response.setCharacterEncoding("Shift-JIS");
 			PrintWriter out = response.getWriter();
 			out.print("<h1>ERROR</h1>");
-			out.print("<a href='/rei13/newrow1.jsp'>入力画面へ戻る</a>");
 		}
 	}
 
